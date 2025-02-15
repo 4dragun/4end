@@ -17,16 +17,6 @@ else
   echo "skipped NVCHAD setup..!"
 fi
 
-read -p "install YAY - Yet Another AUR Helper..? " yas
-if [[ $yas = y ]]; then
-  rm -rf ~/yay-bin
-  sudo pacman -S --needed git base-devel
-  git clone https://aur.archlinux.org/yay-bin.git
-  cd yay-bin && makepkg -si && cd && yay
-else
-  echo "skipped YAY setup..!"
-fi
-
 read -p "sudoedit SYSTEM-files..? " sas
 if [[ $sas = y ]]; then
   $W < ~/4end/scripts/scriptiles/chaoty.sh
@@ -37,25 +27,11 @@ if [[ $sas = y ]]; then
 
   $W HibernateDelaySec=2400s
   $N /etc/systemd/sleep.conf
-
-  $W "/swapfile none swap defaults 0 0"
-  $N /etc/fstab
-
-  $W resume
-  $N /etc/mkinitcpio.conf
 else
   echo "skipped SYSTEM-files editing..!"
 fi
 
 yay
-
-read -p "configure SWAP-file..? " was
-if [[ $was = y ]]; then
-  sudo mkswap -U clear --size 8G --file /swapfile
-  sudo swapon /swapfile
-else
-  echo "skipped SWAP-file creation..!"
-fi
 
 read -p "configure FISH as interactive shell..? " fas
 if [[ $fas = y ]]; then
