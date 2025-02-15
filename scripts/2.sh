@@ -4,7 +4,7 @@ E="echo y"
 W="wl-copy -n"
 Y="yay -S --needed"
 
-cd && read -p "click Enter to continue... "
+cd && echo "CONFIGURATION SCRIPT(2) STARTED..."
 swww img ~/4end/walls/train-sideview.png
 
 read -p "configure NVCHAD..? " nas
@@ -20,7 +20,7 @@ fi
 read -p "sudoedit SYSTEM-files..? " sas
 if [[ $sas = y ]]; then
   $W < ~/4end/scripts/scriptiles/chaoty.sh
-  $N /etc/pacman.conf
+  $N /etc/pacman.conf && yay
 
   $W HandlePowerKey=suspend-then-hibernate
   $N /etc/systemd/logind.conf
@@ -30,8 +30,6 @@ if [[ $sas = y ]]; then
 else
   echo "skipped SYSTEM-files editing..!"
 fi
-
-yay
 
 read -p "configure FISH as interactive shell..? " fas
 if [[ $fas = y ]]; then
@@ -59,13 +57,6 @@ fi
 
 echo "installing AUR-apps..."
 $Y clipse-bin ags-hyprpanel-git
-
-read -p "regenerate INITRAMFS..? " ias
-if [[ $ias = y ]]; then
-  sudo mkinitcpio -P
-else
-  echo "skipped INITRAMFS regeneration..!"
-fi
 
 echo "installing FONTS..."
 $E|$Y noto-fonts noto-fonts-cjk noto-fonts-extra
